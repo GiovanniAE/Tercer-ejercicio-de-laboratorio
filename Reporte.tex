@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+
+\title{Tercer Problema}
+\author{Giovanni Alejandri Espinosa}
+\date{321037293}
+
+\begin{document}
+
+\maketitle
+
+\section*{¿Cómo se llegó a la solución? ¿Cuál fue su elaboración?}
+
+\subsection*{Paso 1}
+El problema pide determinar si es posible llegar al final de una lista de enteros, donde cada número representa la cantidad máxima de posiciones que se pueden avanzar desde esa posición. Para resolverlo, decidí utilizar un enfoque iterativo, controlando el "alcance" máximo posible en cada posición de la lista.
+
+\subsection*{Paso 2}
+Definí la función \texttt{saltos} que recorre la lista y mantiene un control del mayor índice alcanzable en cada iteración. Si en algún momento el índice actual excede el alcance posible, significa que no es posible avanzar más, por lo que se retorna \texttt{False}. Si el alcance es suficiente para llegar al final, la función retorna \texttt{True}.
+
+\subsection*{Paso 3}
+En cada iteración, se compara el alcance actual con el máximo posible desde la posición actual, y se actualiza si es necesario. Si en algún punto el alcance cubre o supera el último índice de la lista, la función termina con éxito.
+
+\subsubsection*{Explicación detallada del código:}
+\begin{itemize}
+    \item \texttt{alcance = 0}: Esta variable controla hasta dónde es posible avanzar en la lista en cada iteración.
+    \item \texttt{for i in range(len(mi_lista))}: Se recorre la lista de izquierda a derecha, posición por posición.
+    \item \texttt{if i > alcance: return False}: Si el índice actual excede el alcance máximo posible, se retorna \texttt{False}, ya que no es posible avanzar más.
+    \item \texttt{alcance = max(alcance, i + mi_lista[i])}: Aquí se actualiza el alcance máximo posible desde la posición actual.
+    \item \texttt{if alcance >= len(mi_lista) - 1: return True}: Si el alcance llega o supera el último índice, significa que es posible llegar al final y se retorna \texttt{True}.
+\end{itemize}
+
+\subsection*{Ejemplos añadidos}
+\begin{lstlisting}
+    from saltos import saltos
+
+    def test_saltos():
+        # Prueba 1: Debería devolver True
+        assert saltos([1, 1, 2]) == True, "Error en el caso 1"
+
+        # Prueba 2: Debería devolver False
+        assert saltos([3, 2, 1, 0, 4]) == False, "Error en el caso 2"
+
+        # Prueba 3: Debería devolver True
+        assert saltos([3, 3, 1, 2, 0, 1]) == True, "Error en el caso 3"
+
+        # Prueba 4: Debería devolver False (lista vacía)
+        assert saltos([]) == False, "Error en el caso lista vacía"
+
+        # Prueba 5: Debería devolver True (ya estamos en el único índice)
+        assert saltos([0]) == True, "Error en el caso un solo elemento"
+
+    if __name__ == "__main__":
+        test_saltos()
+\end{lstlisting}
+En los ejemplos añadidos se comprueban casos básicos, como una lista con saltos que permiten llegar al final, listas que no lo permiten, listas vacías y una lista con un único elemento.
+
+\subsection*{Conclusión}
+La solución fue implementada de manera eficiente utilizando un enfoque iterativo con control de alcance. Esto permite verificar si es posible llegar al final de la lista sin necesidad de hacer retrocesos o complicaciones adicionales. Las pruebas añadidas cubren diferentes escenarios, asegurando que la función funcione correctamente para una variedad de casos. La función responde adecuadamente tanto en listas vacías como en listas con un solo elemento, y los resultados son precisos en todos los casos probados.
+\end{document}
